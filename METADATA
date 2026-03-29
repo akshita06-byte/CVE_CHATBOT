@@ -1,18 +1,13 @@
-Metadata-Version: 2.1
-Name: anyio
-Version: 3.7.1
-Summary: High level compatibility layer for multiple asynchronous event loop implementations
-Author-email: Alex Grönholm <alex.gronholm@nextday.fi>
-License: MIT
-Project-URL: Documentation, https://anyio.readthedocs.io/en/latest/
-Project-URL: Changelog, https://anyio.readthedocs.io/en/stable/versionhistory.html
-Project-URL: Source code, https://github.com/agronholm/anyio
-Project-URL: Issue tracker, https://github.com/agronholm/anyio/issues
+Metadata-Version: 2.4
+Name: googleapis-common-protos
+Version: 1.73.0
+Summary: Common protobufs used in Google APIs
+Author-email: Google LLC <googleapis-packages@google.com>
+License: Apache 2.0
+Project-URL: Repository, https://github.com/googleapis/google-cloud-python/tree/main/packages/googleapis-common-protos
 Classifier: Development Status :: 5 - Production/Stable
 Classifier: Intended Audience :: Developers
-Classifier: License :: OSI Approved :: MIT License
-Classifier: Framework :: AnyIO
-Classifier: Typing :: Typed
+Classifier: License :: OSI Approved :: Apache Software License
 Classifier: Programming Language :: Python
 Classifier: Programming Language :: Python :: 3
 Classifier: Programming Language :: Python :: 3.7
@@ -20,86 +15,213 @@ Classifier: Programming Language :: Python :: 3.8
 Classifier: Programming Language :: Python :: 3.9
 Classifier: Programming Language :: Python :: 3.10
 Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: 3.14
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Internet
 Requires-Python: >=3.7
 Description-Content-Type: text/x-rst
 License-File: LICENSE
-Requires-Dist: idna (>=2.8)
-Requires-Dist: sniffio (>=1.1)
-Requires-Dist: exceptiongroup ; python_version < "3.11"
-Requires-Dist: typing-extensions ; python_version < "3.8"
-Provides-Extra: doc
-Requires-Dist: packaging ; extra == 'doc'
-Requires-Dist: Sphinx ; extra == 'doc'
-Requires-Dist: sphinx-rtd-theme (>=1.2.2) ; extra == 'doc'
-Requires-Dist: sphinxcontrib-jquery ; extra == 'doc'
-Requires-Dist: sphinx-autodoc-typehints (>=1.2.0) ; extra == 'doc'
-Provides-Extra: test
-Requires-Dist: anyio[trio] ; extra == 'test'
-Requires-Dist: coverage[toml] (>=4.5) ; extra == 'test'
-Requires-Dist: hypothesis (>=4.0) ; extra == 'test'
-Requires-Dist: psutil (>=5.9) ; extra == 'test'
-Requires-Dist: pytest (>=7.0) ; extra == 'test'
-Requires-Dist: pytest-mock (>=3.6.1) ; extra == 'test'
-Requires-Dist: trustme ; extra == 'test'
-Requires-Dist: uvloop (>=0.17) ; (python_version < "3.12" and platform_python_implementation == "CPython" and platform_system != "Windows") and extra == 'test'
-Requires-Dist: mock (>=4) ; (python_version < "3.8") and extra == 'test'
-Provides-Extra: trio
-Requires-Dist: trio (<0.22) ; extra == 'trio'
+Requires-Dist: protobuf!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,<7.0.0,>=3.20.2
+Provides-Extra: grpc
+Requires-Dist: grpcio<2.0.0,>=1.44.0; extra == "grpc"
+Dynamic: license-file
 
-.. image:: https://github.com/agronholm/anyio/actions/workflows/test.yml/badge.svg
-  :target: https://github.com/agronholm/anyio/actions/workflows/test.yml
-  :alt: Build Status
-.. image:: https://coveralls.io/repos/github/agronholm/anyio/badge.svg?branch=master
-  :target: https://coveralls.io/github/agronholm/anyio?branch=master
-  :alt: Code Coverage
-.. image:: https://readthedocs.org/projects/anyio/badge/?version=latest
-  :target: https://anyio.readthedocs.io/en/latest/?badge=latest
-  :alt: Documentation
-.. image:: https://badges.gitter.im/gitterHQ/gitter.svg
-  :target: https://gitter.im/python-trio/AnyIO
-  :alt: Gitter chat
+Python Client for Google APIs Common Protos
+===========================================
 
-AnyIO is an asynchronous networking and concurrency library that works on top of either asyncio_ or
-trio_. It implements trio-like `structured concurrency`_ (SC) on top of asyncio and works in harmony
-with the native SC of trio itself.
+|stable| |pypi| |versions|
 
-Applications and libraries written against AnyIO's API will run unmodified on either asyncio_ or
-trio_. AnyIO can also be adopted into a library or application incrementally – bit by bit, no full
-refactoring necessary. It will blend in with the native libraries of your chosen backend.
+`Google APIs Common Protos`_: 
 
-Documentation
--------------
+- `Client Library Documentation`_
+- `Product Documentation`_
 
-View full documentation at: https://anyio.readthedocs.io/
+.. |stable| image:: https://img.shields.io/badge/support-stable-gold.svg
+   :target: https://github.com/googleapis/google-cloud-python/blob/main/README.rst#stability-levels
+.. |pypi| image:: https://img.shields.io/pypi/v/googleapis-common-protos.svg
+   :target: https://pypi.org/project/googleapis-common-protos/
+.. |versions| image:: https://img.shields.io/pypi/pyversions/googleapis-common-protos.svg
+   :target: https://pypi.org/project/googleapis-common-protos/
+.. _Google APIs Common Protos: https://github.com/googleapis/googleapis/tree/master/google
+.. _Client Library Documentation: https://github.com/googleapis/google-cloud-python/tree/main/packages/googleapis-common-protos/summary_overview
+.. _Product Documentation:  https://github.com/googleapis/googleapis/tree/master/google
 
-Features
---------
+Quick Start
+-----------
 
-AnyIO offers the following functionality:
+In order to use this library, you first need to go through the following steps:
 
-* Task groups (nurseries_ in trio terminology)
-* High-level networking (TCP, UDP and UNIX sockets)
+1. `Select or create a Cloud Platform project.`_
+2. `Enable billing for your project.`_
+3. `Enable the Google APIs Common Protos.`_
+4. `Set up Authentication.`_
 
-  * `Happy eyeballs`_ algorithm for TCP connections (more robust than that of asyncio on Python
-    3.8)
-  * async/await style UDP sockets (unlike asyncio where you still have to use Transports and
-    Protocols)
+.. _Select or create a Cloud Platform project.: https://console.cloud.google.com/project
+.. _Enable billing for your project.: https://cloud.google.com/billing/docs/how-to/modify-project#enable_billing_for_a_project
+.. _Enable the Google APIs Common Protos.:  https://github.com/googleapis/googleapis/tree/master/google
+.. _Set up Authentication.: https://googleapis.dev/python/google-api-core/latest/auth.html
 
-* A versatile API for byte streams and object streams
-* Inter-task synchronization and communication (locks, conditions, events, semaphores, object
-  streams)
-* Worker threads
-* Subprocesses
-* Asynchronous file I/O (using worker threads)
-* Signal handling
+Installation
+~~~~~~~~~~~~
 
-AnyIO also comes with its own pytest_ plugin which also supports asynchronous fixtures.
-It even works with the popular Hypothesis_ library.
+Install this library in a virtual environment using `venv`_. `venv`_ is a tool that
+creates isolated Python environments. These isolated environments can have separate
+versions of Python packages, which allows you to isolate one project's dependencies
+from the dependencies of other projects.
 
-.. _asyncio: https://docs.python.org/3/library/asyncio.html
-.. _trio: https://github.com/python-trio/trio
-.. _structured concurrency: https://en.wikipedia.org/wiki/Structured_concurrency
-.. _nurseries: https://trio.readthedocs.io/en/stable/reference-core.html#nurseries-and-spawning
-.. _Happy eyeballs: https://en.wikipedia.org/wiki/Happy_Eyeballs
-.. _pytest: https://docs.pytest.org/en/latest/
-.. _Hypothesis: https://hypothesis.works/
+With `venv`_, it's possible to install this library without needing system
+install permissions, and without clashing with the installed system
+dependencies.
+
+.. _`venv`: https://docs.python.org/3/library/venv.html
+
+
+Code samples and snippets
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Code samples and snippets live in the `samples/`_ folder.
+
+.. _samples/: https://github.com/googleapis/google-cloud-python/tree/main/packages/googleapis-common-protos/samples
+
+
+Supported Python Versions
+^^^^^^^^^^^^^^^^^^^^^^^^^
+Our client libraries are compatible with all current `active`_ and `maintenance`_ versions of
+Python.
+
+Python >= 3.7, including 3.14
+
+.. _active: https://devguide.python.org/devcycle/#in-development-main-branch
+.. _maintenance: https://devguide.python.org/devcycle/#maintenance-branches
+
+Unsupported Python Versions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python <= 3.6
+
+If you are using an `end-of-life`_
+version of Python, we recommend that you update as soon as possible to an actively supported version.
+
+.. _end-of-life: https://devguide.python.org/devcycle/#end-of-life-branches
+
+Mac/Linux
+^^^^^^^^^
+
+.. code-block:: console
+
+    python3 -m venv <your-env>
+    source <your-env>/bin/activate
+    pip install googleapis-common-protos
+
+
+Windows
+^^^^^^^
+
+.. code-block:: console
+
+    py -m venv <your-env>
+    .\<your-env>\Scripts\activate
+    pip install googleapis-common-protos
+
+Next Steps
+~~~~~~~~~~
+
+-  Read the `Client Library Documentation`_ for Google APIs Common Protos
+   to see other available methods on the client.
+-  Read the `Google APIs Common Protos Product documentation`_ to learn
+   more about the product and see How-to Guides.
+-  View this `README`_ to see the full list of Cloud
+   APIs that we cover.
+
+.. _Google APIs Common Protos Product documentation:  https://github.com/googleapis/googleapis/tree/master/google
+.. _README: https://github.com/googleapis/google-cloud-python/blob/main/README.rst
+
+Logging
+-------
+
+This library uses the standard Python :code:`logging` functionality to log some RPC events that could be of interest for debugging and monitoring purposes.
+Note the following:
+
+#. Logs may contain sensitive information. Take care to **restrict access to the logs** if they are saved, whether it be on local storage or on Google Cloud Logging.
+#. Google may refine the occurrence, level, and content of various log messages in this library without flagging such changes as breaking. **Do not depend on immutability of the logging events**.
+#. By default, the logging events from this library are not handled. You must **explicitly configure log handling** using one of the mechanisms below.
+
+Simple, environment-based configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To enable logging for this library without any changes in your code, set the :code:`GOOGLE_SDK_PYTHON_LOGGING_SCOPE` environment variable to a valid Google
+logging scope. This configures handling of logging events (at level :code:`logging.DEBUG` or higher) from this library in a default manner, emitting the logged
+messages in a structured format. It does not currently allow customizing the logging levels captured nor the handlers, formatters, etc. used for any logging
+event.
+
+A logging scope is a period-separated namespace that begins with :code:`google`, identifying the Python module or package to log.
+
+- Valid logging scopes: :code:`google`, :code:`google.cloud.asset.v1`, :code:`google.api`, :code:`google.auth`, etc.
+- Invalid logging scopes: :code:`foo`, :code:`123`, etc.
+
+**NOTE**: If the logging scope is invalid, the library does not set up any logging handlers.
+
+Environment-Based Examples
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- Enabling the default handler for all Google-based loggers
+
+.. code-block:: console
+
+    export GOOGLE_SDK_PYTHON_LOGGING_SCOPE=google
+
+- Enabling the default handler for a specific Google module (for a client library called :code:`library_v1`):
+
+.. code-block:: console
+
+    export GOOGLE_SDK_PYTHON_LOGGING_SCOPE=google.cloud.library_v1
+
+
+Advanced, code-based configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can also configure a valid logging scope using Python's standard `logging` mechanism.
+
+Code-Based Examples
+^^^^^^^^^^^^^^^^^^^
+
+- Configuring a handler for all Google-based loggers
+
+.. code-block:: python
+
+    import logging
+    
+    from google.cloud import library_v1
+    
+    base_logger = logging.getLogger("google")
+    base_logger.addHandler(logging.StreamHandler())
+    base_logger.setLevel(logging.DEBUG)
+
+- Configuring a handler for a specific Google module (for a client library called :code:`library_v1`):
+
+.. code-block:: python
+
+    import logging
+    
+    from google.cloud import library_v1
+    
+    base_logger = logging.getLogger("google.cloud.library_v1")
+    base_logger.addHandler(logging.StreamHandler())
+    base_logger.setLevel(logging.DEBUG)
+
+Logging details
+~~~~~~~~~~~~~~~
+
+#. Regardless of which of the mechanisms above you use to configure logging for this library, by default logging events are not propagated up to the root
+   logger from the `google`-level logger. If you need the events to be propagated to the root logger, you must explicitly set
+   :code:`logging.getLogger("google").propagate = True` in your code.
+#. You can mix the different logging configurations above for different Google modules. For example, you may want use a code-based logging configuration for
+   one library, but decide you need to also set up environment-based logging configuration for another library.
+
+   #. If you attempt to use both code-based and environment-based configuration for the same module, the environment-based configuration will be ineffectual
+      if the code -based configuration gets applied first.
+
+#. The Google-specific logging configurations (default handlers for environment-based configuration; not propagating logging events to the root logger) get
+   executed the first time *any* client library is instantiated in your application, and only if the affected loggers have not been previously configured.
+   (This is the reason for 2.i. above.)
